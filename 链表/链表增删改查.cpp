@@ -15,7 +15,7 @@ typedef struct SlistNode
 }SN;
 
 
-// ´´½¨Ò»¸ö½Úµã
+// åˆ›å»ºä¸€ä¸ªèŠ‚ç‚¹
 SN* CreateSListNode(SLDataType x)
 {
 	SN* newnode = (SN*)malloc(sizeof(SN));
@@ -25,7 +25,7 @@ SN* CreateSListNode(SLDataType x)
 	return newnode;
 }
 
-// ´òÓ¡Á´±í 
+// æ‰“å°é“¾è¡¨ 
 void SListPrint(SN* phead)
 {
 	SN* tmp = phead;
@@ -37,12 +37,12 @@ void SListPrint(SN* phead)
 	printf("\n");
 } 
 
-// ÔÚÎ²²¿²åÈë 
+// åœ¨å°¾éƒ¨æ’å…¥ 
 void  SListPushBack(SN** phead, SLDataType x)
 {
-	// ÏÈ´´½¨ĞÂ½Úµã 
+	// å…ˆåˆ›å»ºæ–°èŠ‚ç‚¹ 
 	SN* newnode = CreateSListNode(x);
-	// ÅĞ¶ÏpeadÊÇ·ñÎª NULL,¼ì²âÁ´±íÃ»ÓĞÈÎºÎ½Úµã 
+	// åˆ¤æ–­peadæ˜¯å¦ä¸º NULL,æ£€æµ‹é“¾è¡¨æ²¡æœ‰ä»»ä½•èŠ‚ç‚¹ 
 	if(*phead == NULL)
 	{
 		*phead = newnode;		
@@ -50,7 +50,7 @@ void  SListPushBack(SN** phead, SLDataType x)
 	else
 	{
 		SN* tail = *phead;
-		// ÕÒµ½Î²½Úµã 
+		// æ‰¾åˆ°å°¾èŠ‚ç‚¹ 
 		while(tail->next != NULL)
 		{
 			tail = tail->next;
@@ -60,13 +60,13 @@ void  SListPushBack(SN** phead, SLDataType x)
 	
 } 
 
-// ÔÚÍ·²¿²åÈë
+// åœ¨å¤´éƒ¨æ’å…¥
 void SListPushFront(SN** phead, SLDataType x)
 {
-	// ÏÈ´´½¨ĞÂ½Úµã 
+	// å…ˆåˆ›å»ºæ–°èŠ‚ç‚¹ 
 	SN* newnode = CreateSListNode(x);
 	
-	// ÅĞ¶ÏpeadÊÇ·ñÎª NULL,¼ì²âÁ´±íÃ»ÓĞÈÎºÎ½Úµã 
+	// åˆ¤æ–­peadæ˜¯å¦ä¸º NULL,æ£€æµ‹é“¾è¡¨æ²¡æœ‰ä»»ä½•èŠ‚ç‚¹ 
 	if(*phead == NULL)
 	{
 		*phead = newnode;		
@@ -78,16 +78,16 @@ void SListPushFront(SN** phead, SLDataType x)
 	}	
 } 
 
-// Î²É¾ 
+// å°¾åˆ  
 void SListPopBack(SN** phead)
 {
-	// Í·½ÚµãÎª¿Õ 
+	// å¤´èŠ‚ç‚¹ä¸ºç©º 
 	if(*phead == NULL)
 	{
 		return;	
 	} 
 	
-	// Ö»ÓĞÒ»¸ö½Úµã 
+	// åªæœ‰ä¸€ä¸ªèŠ‚ç‚¹ 
 	if((*phead)->next == NULL)
 	{
 		free(*phead);
@@ -97,7 +97,7 @@ void SListPopBack(SN** phead)
 	{
 		SN* prev = NULL; 
 		SN* tail = *phead;
-		// ÕÒµ½×îºóÒ»¸ö½Úµã 
+		// æ‰¾åˆ°æœ€åä¸€ä¸ªèŠ‚ç‚¹ 
 		while(tail->next)
 		{
 			prev = tail;
@@ -110,16 +110,16 @@ void SListPopBack(SN** phead)
 	}
 } 
 
-// Í·É¾ 
+// å¤´åˆ  
 void SListPopFront(SN** phead)
 {
-	// Í·½ÚµãÎª¿Õ 
+	// å¤´èŠ‚ç‚¹ä¸ºç©º 
 	if(*phead == NULL)
 	{
 		return;	
 	} 
 	
-	// Ö»ÓĞÒ»¸ö½Úµã 
+	// åªæœ‰ä¸€ä¸ªèŠ‚ç‚¹ 
 	if((*phead)->next == NULL)
 	{
 		free(*phead);
@@ -133,8 +133,8 @@ void SListPopFront(SN** phead)
 	}	
 } 
 
-// ²éÕÒÄ³¸öÔªËØ(²»ĞèÒª¸ü¸ÄÄ³¸öÔªËØ,Ê¹ÓÃÒ»¼¶Ö¸Õë)
-// µÃµ½µØÖ·ºóÒ²ÓĞĞŞ¸Ä¸Ã½ÚµãµÄÖµµÄ×÷ÓÃ  
+// æŸ¥æ‰¾æŸä¸ªå…ƒç´ (ä¸éœ€è¦æ›´æ”¹æŸä¸ªå…ƒç´ ,ä½¿ç”¨ä¸€çº§æŒ‡é’ˆ)
+// å¾—åˆ°åœ°å€åä¹Ÿæœ‰ä¿®æ”¹è¯¥èŠ‚ç‚¹çš„å€¼çš„ä½œç”¨  
 SN* SListFind(SN* phead, SLDataType x)
 {
 	SN* cur = phead;
@@ -149,19 +149,19 @@ SN* SListFind(SN* phead, SLDataType x)
 	return NULL;
 } 
 
-// ÔÚposÎ»ÖÃÖ®Ç°È¥²åÈëÒ»¸ö½Úµã 
+// åœ¨posä½ç½®ä¹‹å‰å»æ’å…¥ä¸€ä¸ªèŠ‚ç‚¹ 
 void SListInsertBefore(SN** phead, SN* pos, SLDataType x)
 {
-	// ÅĞ¶Ï pos ÊÇ·ñÎªÊ×½áµã 
+	// åˆ¤æ–­ pos æ˜¯å¦ä¸ºé¦–ç»“ç‚¹ 
 	if(*phead == pos)
 	{
 		SListPushFront(&(*phead), x);
 	}
 	else
 	{
-		// ÏÈ´´½¨ĞÂ½Úµã 
+		// å…ˆåˆ›å»ºæ–°èŠ‚ç‚¹ 
 		SN* newnode = CreateSListNode(x);
-		// ÕÒµ½ pos Ö®Ç°µÄ½ÚµãÎ»ÖÃ
+		// æ‰¾åˆ° pos ä¹‹å‰çš„èŠ‚ç‚¹ä½ç½®
 		SN* posPrev = *phead;
 		while(posPrev->next != pos)
 		{
@@ -173,12 +173,12 @@ void SListInsertBefore(SN** phead, SN* pos, SLDataType x)
 	
 }
 
-// ÔÚposÎ»ÖÃÖ®ºóÈ¥²åÈëÒ»¸ö½Úµã 
+// åœ¨posä½ç½®ä¹‹åå»æ’å…¥ä¸€ä¸ªèŠ‚ç‚¹ 
 void SListInsertAfter(SN** phead, SN* pos, SLDataType x)
 {
 
 	SN* newnode = CreateSListNode(x);
-	// ÕÒµ½ pos µ±Ç°Î»ÖÃ 
+	// æ‰¾åˆ° pos å½“å‰ä½ç½® 
 	SN* cur = *phead;
 	while(cur != pos)
 	{
@@ -189,10 +189,10 @@ void SListInsertAfter(SN** phead, SN* pos, SLDataType x)
 	 
 }
 
-// É¾³ı posÎ»ÖÃµÄ½Úµã 
+// åˆ é™¤ posä½ç½®çš„èŠ‚ç‚¹ 
 void SListErase(SN** phead, SN* pos)
 {
-	// Ö»ÓĞÒ»¸ö½Úµã 
+	// åªæœ‰ä¸€ä¸ªèŠ‚ç‚¹ 
 	if(*phead == pos)
 	{
 //		*phead = pos->next;
@@ -211,7 +211,7 @@ void SListErase(SN** phead, SN* pos)
 	} 	
 }
 
-// É¾³ı pos Ö®ºóµÄ½Úµã 
+// åˆ é™¤ pos ä¹‹åçš„èŠ‚ç‚¹ 
 void SListEraseAfter(SN** phead, SN* pos)
 {
 	if(pos->next == NULL)
@@ -226,7 +226,7 @@ void SListEraseAfter(SN** phead, SN* pos)
 	}
 }
 
-// Ïú»ÙÁ´±í 
+// é”€æ¯é“¾è¡¨ 
 void SListDestroy(SN** phead)
 {
 	SN* cur = *phead;
@@ -242,63 +242,63 @@ int main()
 {
 	SN* plist = NULL;
 	
-	// Î²²å 
+	// å°¾æ’ 
 	SListPushBack(&plist, 1);
 	SListPushBack(&plist, 2);
 	SListPushBack(&plist, 3);
 	SListPushBack(&plist, 4);
 	SListPushBack(&plist, 5);
 	
-	// Í·²å 
+	// å¤´æ’ 
 	SListPushFront(&plist, 1);
 	SListPushFront(&plist, 2);
 	SListPushFront(&plist, 3);
 	SListPushFront(&plist, 4);
 	SListPushFront(&plist, 5);
 
-	// Î²É¾ 
+	// å°¾åˆ  
 	SListPopBack(&plist);
 	SListPopBack(&plist);
 	SListPopBack(&plist);
 	
-	// Í·É¾ 
+	// å¤´åˆ  
 	SListPopFront(&plist);
 	SListPopFront(&plist);
 	SListPopFront(&plist);
 	
-	// ´òÓ¡  
+	// æ‰“å°  
 	SListPrint(plist);
 	
-	// 1.ÕÒ 
+	// 1.æ‰¾ 
 	SN* pos = SListFind(plist, 2);
 	int i=1;
 	while(pos)
 	{
-		printf("µÚ%d¸öpos½áµã:%p->%d\n",i++,pos,pos->data);
+		printf("ç¬¬%dä¸ªposç»“ç‚¹:%p->%d\n",i++,pos,pos->data);
 		pos = SListFind(pos->next, 2);
 	}
-	// 2.ĞŞ¸Ä 
+	// 2.ä¿®æ”¹ 
 	pos = SListFind(plist, 2);
 	if(pos)
 	{
 		pos->data = 3;
-		// ÔÚ 3 µÄÇ°Ãæ²åÈëÒ»¸ö 30
+		// åœ¨ 3 çš„å‰é¢æ’å…¥ä¸€ä¸ª 30
 		SListInsertBefore(&plist, pos, 30); 
 		SListInsertAfter(&plist, pos, 20);
 	}	
 	SListPrint(plist);
 		
-	// É¾³ıÄ³¸öÎ»ÖÃµÄ½Úµã  
+	// åˆ é™¤æŸä¸ªä½ç½®çš„èŠ‚ç‚¹  
 	pos = SListFind(plist, 30);
 	SListErase(&plist, pos); 	
 	SListPrint(plist);
 	
-	// É¾³ıÄ³¸öÎ»ÖÃÖ®ºóµÄ½Úµã 
+	// åˆ é™¤æŸä¸ªä½ç½®ä¹‹åçš„èŠ‚ç‚¹ 
 	pos = SListFind(plist, 3); 
 	SListEraseAfter(&plist, pos); 
 	SListPrint(plist);
 	
-	// Ïú»ÙÁ´±í
+	// é”€æ¯é“¾è¡¨
 	 
 	
 	return 0;
