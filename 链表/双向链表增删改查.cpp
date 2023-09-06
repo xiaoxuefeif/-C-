@@ -13,11 +13,11 @@ typedef struct ListNode
 	struct ListNode* prev;
 }LTNode; 
 
-// ´øÍ·½áµã¾Í¿ÉÒÔ²»Ê¹ÓÃ¶þ¼¶Ö¸Õë  
-// ³õÊ¼»¯ 
+// å¸¦å¤´ç»“ç‚¹å°±å¯ä»¥ä¸ä½¿ç”¨äºŒçº§æŒ‡é’ˆ  
+// åˆå§‹åŒ– 
 LTNode* ListInit()
 {
-	// ×÷ÎªÉÚ±øÎ»µÄÍ·½Úµã£¬²»´æ´¢ÓÐÐ§ÐÅÏ¢ 
+	// ä½œä¸ºå“¨å…µä½çš„å¤´èŠ‚ç‚¹ï¼Œä¸å­˜å‚¨æœ‰æ•ˆä¿¡æ¯ 
 	LTNode* phead = (LTNode*)malloc(sizeof(LTNode));
 	phead->next = phead;
 	phead->prev = phead;
@@ -25,7 +25,7 @@ LTNode* ListInit()
 	return phead;	  
 }
 
-// ´´½¨ÐÂ½Úµã 
+// åˆ›å»ºæ–°èŠ‚ç‚¹ 
 LTNode* CreateListNode(LTDataType x)
 {
 	LTNode* newnode = (LTNode*)malloc(sizeof(LTNode));
@@ -36,14 +36,14 @@ LTNode* CreateListNode(LTDataType x)
 	return newnode;	
 } 
 
-// Î²²å 
+// å°¾æ’ 
 void ListPushBack(LTNode* phead, LTDataType x)
 {
 	
-	// ´´½¨ÐÂµÄ½Úµã 
+	// åˆ›å»ºæ–°çš„èŠ‚ç‚¹ 
 	LTNode* newnode =  CreateListNode(x);
 	
-	// ÓÐÒ»¸öÉÚ±øÎ»µÄÍ·½Úµã£¬Ë«ÏòÑ­»·Á´±í²»ÐèÒª¿¼ÂÇ¿ÕÁ´±íµÄÎÊÌâ 
+	// æœ‰ä¸€ä¸ªå“¨å…µä½çš„å¤´èŠ‚ç‚¹ï¼ŒåŒå‘å¾ªçŽ¯é“¾è¡¨ä¸éœ€è¦è€ƒè™‘ç©ºé“¾è¡¨çš„é—®é¢˜ 
 	LTNode* tail = phead->prev;
 	tail->next = newnode;
 	newnode->prev = tail;
@@ -51,13 +51,13 @@ void ListPushBack(LTNode* phead, LTDataType x)
 	phead->prev = newnode;	
 }
 
-// Î²É¾ 
+// å°¾åˆ  
 void ListPopBack(LTNode* phead)
 {
-	// ±íÊ¾Á´±íÎª¿Õ£¬²»ÄÜÉ¾  
+	// è¡¨ç¤ºé“¾è¡¨ä¸ºç©ºï¼Œä¸èƒ½åˆ   
 	assert(phead->next != phead);
 	
-	// Ñ°ÕÒÎ²½Úµã 
+	// å¯»æ‰¾å°¾èŠ‚ç‚¹ 
 	LTNode* tail = phead->prev;
 	
 	tail->prev->next = phead;
@@ -65,10 +65,10 @@ void ListPopBack(LTNode* phead)
 	
 } 
 
-// Í·²å 
+// å¤´æ’ 
 void ListPushFront(LTNode* phead, LTDataType x)  
 {
-	// ´´½¨ÐÂµÄ½Úµã 
+	// åˆ›å»ºæ–°çš„èŠ‚ç‚¹ 
 	LTNode* newnode =  CreateListNode(x);
 	
 	LTNode* head = phead->next;
@@ -78,20 +78,20 @@ void ListPushFront(LTNode* phead, LTDataType x)
 	newnode->prev = phead;
 }
 
-// Í·É¾ 
+// å¤´åˆ  
 void ListPopFront(LTNode* phead) 
 {
-	// Á´±í¿Õ 
+	// é“¾è¡¨ç©º 
 	assert(phead->next != phead); 
 	
-	// Ñ°ÕÒÍ·½Úµã 
+	// å¯»æ‰¾å¤´èŠ‚ç‚¹ 
 	LTNode* head = phead->next;
 	
 	phead->next = head->next;
 	head->next->prev = phead;
 }
 
-// ÕÒ½Úµã 
+// æ‰¾èŠ‚ç‚¹ 
 LTNode* ListFind(LTNode* phead, LTDataType x)
 {
 	LTNode* cur = phead->next;
@@ -107,14 +107,14 @@ LTNode* ListFind(LTNode* phead, LTDataType x)
 	return NULL;	
 } 
 
-// ÔÚposÎ»ÖÃÖ®Ç°²åÈë (Í·²å£ºposÎª phead->next; Î²²å£ºposÎª phead)
+// åœ¨posä½ç½®ä¹‹å‰æ’å…¥ (å¤´æ’ï¼šposä¸º phead->next; å°¾æ’ï¼šposä¸º phead)
 void ListInsert(LTNode* pos, LTDataType x) 
 {
 	assert(pos);
-	// ´´½¨ÐÂµÄ½Úµã 
+	// åˆ›å»ºæ–°çš„èŠ‚ç‚¹ 
 	LTNode* newnode =  CreateListNode(x);
 	
-	// ÕÒµ½posÎ»ÖÃÖ®Ç°µÄ½Úµã 
+	// æ‰¾åˆ°posä½ç½®ä¹‹å‰çš„èŠ‚ç‚¹ 
 	LTNode* posPrev = pos->prev;
 	
 	posPrev->next = newnode;
@@ -124,12 +124,12 @@ void ListInsert(LTNode* pos, LTDataType x)
 		
 }
 
-// É¾³ýposÎ»ÖÃ 
+// åˆ é™¤posä½ç½® 
 void ListErase(LTNode* pos)
 {
 	assert(pos);
 	
-	// ÕÒµ½posÎ»ÖÃÖ®Ç°µÄ½Úµã 
+	// æ‰¾åˆ°posä½ç½®ä¹‹å‰çš„èŠ‚ç‚¹ 
 	LTNode* posPrev = pos->prev;
 	
 	posPrev->next = pos->next;
@@ -137,7 +137,7 @@ void ListErase(LTNode* pos)
 		
 }
 
-// Ïú»Ù 
+// é”€æ¯ 
 void ListDestroy(LTNode* phead)
 {
 	LTNode* cur = phead;
@@ -152,7 +152,7 @@ void ListDestroy(LTNode* phead)
 	phead = NULL;
 } 
 
-// ´òÓ¡ 
+// æ‰“å° 
 void Listprint(LTNode* phead) 
 {
 	LTNode* cur = phead->next;
@@ -168,37 +168,37 @@ void Listprint(LTNode* phead)
 
 int main()
 {
-	// ´´½¨ 
+	// åˆ›å»º 
 	LTNode* phead = ListInit();
 	
-	// Î²²å 
+	// å°¾æ’ 
 	ListPushBack(phead, 1);
 	ListPushBack(phead, 2);
 	ListPushBack(phead, 3);
 	ListPushBack(phead, 4);
 	ListPushBack(phead, 5);
 	
-	// Í·²å 
+	// å¤´æ’ 
 	ListPushFront(phead,6);
 	ListPushFront(phead,7);
 	ListPushFront(phead,8);
 	ListPushFront(phead,9);
 	ListPushFront(phead,10);
 		
-	// ´òÓ¡ 
+	// æ‰“å° 
 	Listprint(phead);
 	
-	// ÕÒµ½data = 1µÄÎ»ÖÃ£¬È»ºóÔÚdataÖ®Ç°²åÈë5
+	// æ‰¾åˆ°data = 1çš„ä½ç½®ï¼Œç„¶åŽåœ¨dataä¹‹å‰æ’å…¥5
 	LTNode* findnode = ListFind(phead, 1);
 	ListInsert(findnode, 5); 
 	Listprint(phead);
 	
-	// É¾³ýposÎ»ÖÃµÄ½Úµã
+	// åˆ é™¤posä½ç½®çš„èŠ‚ç‚¹
 	findnode = ListFind(phead, 5);
 	ListErase(findnode); 
 	Listprint(phead);
 	
-	// Ê¹ÓÃListInsert½øÐÐÎ²²åºÍÍ·²å 
+	// ä½¿ç”¨ListInsertè¿›è¡Œå°¾æ’å’Œå¤´æ’ 
 	ListInsert(phead, 6);
 	ListInsert(phead->next, 11);
 	Listprint(phead);
