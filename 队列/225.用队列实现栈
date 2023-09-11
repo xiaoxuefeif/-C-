@@ -1,0 +1,233 @@
+# include<stdio.h>
+# include<assert.h>
+# include<stdbool.h>
+
+typedef int QDataType;
+
+typedef struct QueueNode
+{
+	struct QueueNode* next;
+	QDataType data; 
+}QNode;
+
+typedef struct Queue
+{
+	QNode* head;
+	QNode* tail; 
+}Queue; 
+
+
+// 初始化 
+void QueueInit(Queue* pq)
+{
+	assert(pq);
+	pq->head = NULL;
+	pq->tail = NULL;
+}
+
+// 创建节点 
+QNode* createNode(QDataType x)
+{
+	QNode* newnode = (QNode*)malloc(sizeof(QNode));
+	if(newnode == NULL)
+	{
+		printf("malloc 失败"); 
+		return NULL;
+	}
+	newnode->data = x;
+	newnode->next = NULL;
+	
+	return newnode;
+}
+
+// 销毁 
+void QueueDestroy(Queue* pq)
+{
+	assert(pq);
+	QNode* cur = pq->head;
+	while(cur)
+	{
+		QNode* next = cur->next;
+		free(cur);
+		cur = next;
+	}
+	pq->head = pq->tail = NULL;
+	 
+}
+
+// 判空 
+bool QueueEmpty(Queue* pq)
+{
+	return pq->head == NULL && pq->tail == NULL; 
+} 
+
+// 插入 
+void QueuePush(Queue* pq, QDataType x)
+{
+	assert(pq); 
+	// 创建节点 
+	QNode* newnode = createNode(x); 
+	if(pq->head == NULL)
+	{
+		pq->head = pq->tail = newnode;
+	}
+	else
+	{
+		pq->tail->next = newnode;
+		pq->tail = newnode; 
+	}	
+}
+
+// 删除 
+void QueuePop(Queue* pq)
+{
+	assert(pq);
+	// 防止pq->head为空 
+	assert(!QueueEmpty(pq));
+
+	QNode* next = pq->head->next;
+	free(pq->head);
+	pq->head = next;
+	if(pq->head == NULL)
+	{
+		pq->tail = NULL; 
+	}
+	
+} 
+
+// 取队头 
+QDataType QueueFront(Queue* pq)
+{
+	assert(pq);
+	assert(!QueueEmpty(pq)); 
+	return pq->head->data;
+}
+
+// 取队尾 
+QDataType QueueBack(Queue* pq)
+{
+	assert(pq);
+	assert(!QueueEmpty(pq));
+	return pq->tail->data;
+	
+}
+
+// 元素个数 
+int QueueSize(Queue* pq)
+{
+	assert(pq);
+	int sum = 0;
+	QNode* cur = pq->head;
+	while(cur)
+	{
+		sum++;
+		cur = cur->next;
+	}
+	return sum;
+} 
+
+// 遍历 
+void QueuePrint(Queue* pq)
+{
+	QNode* cur = pq->head;
+
+	while(cur)
+	{
+		printf("%d ", cur->data);
+		cur = cur->next;
+	}
+	printf("\n");
+} 
+
+
+typedef struct {
+    Queue q1;
+    Queue q2;
+
+} MyStack;
+
+
+MyStack* myStackCreate() {
+    MyStack* st = (MyStack*)malloc(sizeof(MyStack));
+    if(st == NULL)
+    {
+        return NULL;
+    }
+    // 初始化队列
+    QueueInit(&st->q1);
+    QueueInit(&st->q2);
+    
+    return st;
+}
+
+void myStackPush(MyStack* obj, int x) {
+
+    if(QueueEmpty(&obj->q1))
+    {
+        QueuePush(&obj->q2, x);
+    }
+    else
+    {
+        QueuePush(&obj->q1, x);
+    }
+
+}
+
+int myStackPop(MyStack* obj) {
+    Queue* emptyQ = &obj->q1;
+    Queue* nonemptyQ = &obj->q2;
+    if(!QueueEmpty(&obj->q1))
+    {
+        emptyQ = &obj->q2;
+        nonemptyQ = &obj->q1;
+    }
+    // 循环至非空序列只剩一个元素
+    while(QueueSize(nonemptyQ)>1)
+    {
+        // 将元素插入空队列，再将有非空队列元素删除
+        QueuePush(emptyQ, QueueFront(nonemptyQ));
+        QueuePop(nonemptyQ);
+    }
+    // 最后删除非空序列最后一个元素
+    int top = QueueBack(nonemptyQ);
+    QueuePop(nonemptyQ);
+
+    return top;
+}
+
+int myStackTop(MyStack* obj) {
+    if(!QueueEmpty(&obj->q1))
+    {
+        return QueueBack(&obj->q1);
+    }
+    else
+    {
+        return QueueBack(&obj->q2);
+    }
+}
+
+bool myStackEmpty(MyStack* obj) {
+
+    return QueueEmpty(&obj->q1) && QueueEmpty(&obj->q2);
+
+}
+
+void myStackFree(MyStack* obj) {
+    QueueDestroy(&obj->q1);
+    QueueDestroy(&obj->q2);
+    free(obj);
+}
+
+/**
+ * Your MyStack struct will be instantiated and called as such:
+ * MyStack* obj = myStackCreate();
+ * myStackPush(obj, x);
+ 
+ * int param_2 = myStackPop(obj);
+ 
+ * int param_3 = myStackTop(obj);
+ 
+ * bool param_4 = myStackEmpty(obj);
+ 
+ * myStackFree(obj);
+*/
