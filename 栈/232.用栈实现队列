@@ -1,0 +1,173 @@
+// 插入数据时插入push栈，取数据是先判断pop栈是否有元素，没有就需要从push栈先导入
+
+# include<stdio.h>
+# include<stdlib.h>
+# include<assert.h>
+# include<stdbool.h>
+
+typedef int STDataType;
+
+typedef struct Stack
+{
+	STDataType* a;
+	int top;       // 栈顶 
+	int capacity;  // 容量 
+}ST;
+
+
+// 初始化
+void StackInit(ST* ps)
+{
+	assert(ps);
+	ps->a = NULL;
+	ps->top = 0;
+	ps->capacity = 0;
+} 
+
+
+// 销毁 
+void StackDestroy(ST* ps)
+{
+	assert(ps);
+	free(ps->a);
+	ps->a == NULL;
+	ps->capacity = ps->top = 0;	
+} 
+
+// 入栈 
+void StackPush(ST* ps, STDataType x)
+{
+	assert(ps);
+	// 判断空间是否充足  
+	if(ps->top == ps->capacity)
+	{
+		int newCapacity = ps->capacity == 0 ? 4 : ps->capacity * 2;
+		STDataType* tmp = (STDataType*)realloc(ps->a, sizeof(STDataType)*(newCapacity)); 
+		if(tmp == NULL)
+		{
+			printf("realloc fail\n");
+			exit(-1);
+		}
+		
+		ps->a = tmp;
+		ps->capacity = newCapacity;	
+	} 
+	
+	ps->a[ps->top] = x;
+	ps->top++;
+}
+
+// 判空 (空为 true, 非空为 false)
+bool StackEmpty(ST* ps)
+{
+	assert(ps);
+	
+	return ps->top == 0; 	
+} 
+
+// 出栈 
+void StackPop(ST* ps)
+{
+	assert(ps);
+	// 防止 ps->top为空  
+	assert(!StackEmpty(ps));
+	
+	(ps->top)--;
+	
+} 
+ 
+// 取栈顶元素  
+STDataType StackTop(ST* ps) 
+{
+	assert(ps);
+	// 防止 ps->top为空  
+	assert(!StackEmpty(ps));
+	
+	return ps->a[ps->top - 1];	
+}
+
+// 栈中数据多少
+int StackSize(ST* ps)
+{
+	assert(ps);
+	return ps->top;	
+}
+
+
+
+typedef struct {
+    ST pushST;  // 入数据栈
+    ST popST;   // 出数据栈
+} MyQueue;
+
+
+MyQueue* myQueueCreate() {
+    MyQueue* q  = (MyQueue*)malloc(sizeof(MyQueue));
+    StackInit(&q->pushST);
+    StackInit(&q->popST);
+
+    return q;
+}
+
+void myQueuePush(MyQueue* obj, int x) {
+    // 只管往入数据栈中入数据
+    StackPush(&obj->pushST, x);
+}
+
+int myQueuePop(MyQueue* obj) {
+    // 如果pop栈中没有数据，就需要从push栈中倒过来
+    if(StackEmpty(&obj->popST))
+    {
+        while(!StackEmpty(&obj->pushST))
+        {
+            StackPush(&obj->popST, StackTop(&obj->pushST));
+            StackPop(&obj->pushST);
+        }
+    }
+    // 再提取pop第一个元素再删除
+    int front = StackTop(&obj->popST);
+    StackPop(&obj->popST);
+    return front;
+
+
+}
+
+int myQueuePeek(MyQueue* obj) {
+    // 如果pop栈中没有数据，就需要从push栈中倒过来
+    if(StackEmpty(&obj->popST))
+    {
+        while(!StackEmpty(&obj->pushST))
+        {
+            StackPush(&obj->popST, StackTop(&obj->pushST));
+            StackPop(&obj->pushST);
+        }
+    }
+
+    return StackTop(&obj->popST);
+
+}
+
+bool myQueueEmpty(MyQueue* obj) {
+    return StackEmpty(&obj->pushST) && StackEmpty(&obj->popST);
+
+}
+
+void myQueueFree(MyQueue* obj) {
+    StackDestroy(&obj->pushST);
+    StackDestroy(&obj->popST);
+
+}
+
+/**
+ * Your MyQueue struct will be instantiated and called as such:
+ * MyQueue* obj = myQueueCreate();
+ * myQueuePush(obj, x);
+ 
+ * int param_2 = myQueuePop(obj);
+ 
+ * int param_3 = myQueuePeek(obj);
+ 
+ * bool param_4 = myQueueEmpty(obj);
+ 
+ * myQueueFree(obj);
+*/
