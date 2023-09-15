@@ -1,0 +1,35 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     struct TreeNode *left;
+ *     struct TreeNode *right;
+ * };
+ */
+// 二叉树的每一个节点的左右节点的深度差都不超过1
+
+// 深度计算
+int TreeDepth(struct TreeNode* root)
+{
+    if(root == NULL)
+    {
+        return 0;
+    }
+    int leftDepth = TreeDepth(root->left);
+    int rightDepth = TreeDepth(root->right);
+
+    return leftDepth > rightDepth ? leftDepth + 1 : rightDepth + 1;
+}
+
+bool isBalanced(struct TreeNode* root){
+    if(root == NULL)
+    {
+        return true;
+    }
+    int leftDepth = TreeDepth(root->left);
+    int rightDepth = TreeDepth(root->right);
+
+    return abs(leftDepth - rightDepth) < 2 
+    && isBalanced(root->left) && isBalanced(root->right);
+
+}
