@@ -2,7 +2,7 @@
 # include<stdlib.h>
 # include<assert.h>
 
-// ¶ş²æÊ÷  
+// äºŒå‰æ ‘  
 typedef int BTDataType;
 typedef struct BinaryTreeNode
 {
@@ -11,7 +11,7 @@ typedef struct BinaryTreeNode
 	BTDataType data; 
 } BTNode;
 
-// ´´½¨½Úµã 
+// åˆ›å»ºèŠ‚ç‚¹ 
 BTNode* createNode(BTDataType x)
 {
 	BTNode* newnode = (BTNode*)malloc(sizeof(BTNode));
@@ -22,7 +22,7 @@ BTNode* createNode(BTDataType x)
 	return newnode;  
 } 
 
-// Ç°Ğò£¨¸ù×óÓÒ£© 
+// å‰åºï¼ˆæ ¹å·¦å³ï¼‰ 
 void PreOrder(BTNode* root)
 {
 	if(root == NULL)
@@ -34,7 +34,7 @@ void PreOrder(BTNode* root)
 	PreOrder(root->right); 
 }
 
-// ÖĞĞò£¨×ó¸ùÓÒ£© 
+// ä¸­åºï¼ˆå·¦æ ¹å³ï¼‰ 
 void InOrder(BTNode* root)
 {
 	if(root == NULL)
@@ -47,7 +47,7 @@ void InOrder(BTNode* root)
 	
 }
 
-// ºóĞò£¨×óÓÒ¸ù£© 
+// ååºï¼ˆå·¦å³æ ¹ï¼‰ 
 void PostOrder(BTNode* root)
 {
 	if(root == NULL)
@@ -59,14 +59,14 @@ void PostOrder(BTNode* root)
 	printf("%d ", root->data);
 }
 
-// ×Ü½Úµã¸öÊı £¨·ÖÖÎ£© 
+// æ€»èŠ‚ç‚¹ä¸ªæ•° ï¼ˆåˆ†æ²»ï¼‰ 
 int TreeSize(BTNode* root)
 {
 	return root == NULL ? 0 : TreeSize(root->left) + TreeSize(root->right) + 1;
 	
 }
 
-// Ò¶×Ó½Úµã¸öÊı
+// å¶å­èŠ‚ç‚¹ä¸ªæ•°
 int TreeLeafSize(BTNode* root)
 {
 	if(root == NULL)
@@ -92,7 +92,7 @@ int maxDepth(BTNode* root){
 }
 
 // **********************************************************************************
-// ¼ÓÔØ¶ÓÁĞ 
+// åŠ è½½é˜Ÿåˆ— 
 typedef BTNode* QDataType;
 
 typedef struct QueueNode
@@ -108,7 +108,7 @@ typedef struct Queue
 }Queue; 
 
 
-// ³õÊ¼»¯ 
+// åˆå§‹åŒ– 
 void QueueInit(Queue* pq)
 {
 	assert(pq);
@@ -116,13 +116,13 @@ void QueueInit(Queue* pq)
 	pq->tail = NULL;
 }
 
-// ´´½¨½Úµã 
+// åˆ›å»ºèŠ‚ç‚¹ 
 QNode* createNode(QDataType x)
 {
 	QNode* newnode = (QNode*)malloc(sizeof(QNode));
 	if(newnode == NULL)
 	{
-		printf("malloc Ê§°Ü"); 
+		printf("malloc å¤±è´¥"); 
 		return NULL;
 	}
 	newnode->data = x;
@@ -131,7 +131,7 @@ QNode* createNode(QDataType x)
 	return newnode;
 }
 
-// Ïú»Ù 
+// é”€æ¯ 
 void QueueDestroy(Queue* pq)
 {
 	assert(pq);
@@ -146,17 +146,17 @@ void QueueDestroy(Queue* pq)
 	 
 }
 
-// ÅĞ¿Õ 
+// åˆ¤ç©º 
 bool QueueEmpty(Queue* pq)
 {
 	return pq->head == NULL && pq->tail == NULL; 
 } 
 
-// ²åÈë 
+// æ’å…¥ 
 void QueuePush(Queue* pq, QDataType x)
 {
 	assert(pq); 
-	// ´´½¨½Úµã 
+	// åˆ›å»ºèŠ‚ç‚¹ 
 	QNode* newnode = createNode(x); 
 	if(pq->head == NULL)
 	{
@@ -169,11 +169,11 @@ void QueuePush(Queue* pq, QDataType x)
 	}	
 }
 
-// É¾³ı 
+// åˆ é™¤ 
 void QueuePop(Queue* pq)
 {
 	assert(pq);
-	// ·ÀÖ¹pq->headÎª¿Õ 
+	// é˜²æ­¢pq->headä¸ºç©º 
 	assert(!QueueEmpty(pq));
 
 	QNode* next = pq->head->next;
@@ -186,7 +186,7 @@ void QueuePop(Queue* pq)
 	
 } 
 
-// È¡¶ÓÍ· 
+// å–é˜Ÿå¤´ 
 QDataType QueueFront(Queue* pq)
 {
 	assert(pq);
@@ -194,7 +194,7 @@ QDataType QueueFront(Queue* pq)
 	return pq->head->data;
 }
 
-// È¡¶ÓÎ² 
+// å–é˜Ÿå°¾ 
 QDataType QueueBack(Queue* pq)
 {
 	assert(pq);
@@ -203,7 +203,7 @@ QDataType QueueBack(Queue* pq)
 	
 }
 
-// ÔªËØ¸öÊı 
+// å…ƒç´ ä¸ªæ•° 
 int QueueSize(Queue* pq)
 {
 	assert(pq);
@@ -217,7 +217,7 @@ int QueueSize(Queue* pq)
 	return sum;
 } 
 
-// ±éÀú 
+// éå† 
 void QueuePrint(Queue* pq)
 {
 	QNode* cur = pq->head;
@@ -230,12 +230,12 @@ void QueuePrint(Queue* pq)
 	printf("\n");
 }  
  
-// ²ãĞò±éÀú £¨¹ã¶ÈÓÅÏÈ£©
+// å±‚åºéå† ï¼ˆå¹¿åº¦ä¼˜å…ˆï¼‰
 void LevelOrder(BTNode* root)
 {
 	Queue q;
 	QueueInit(&q);
-	// ²åÈëµÚÒ»¸ö½Úµã  
+	// æ’å…¥ç¬¬ä¸€ä¸ªèŠ‚ç‚¹  
 	if(root)
 	{
 		QueuePush(&q, root);
@@ -246,13 +246,13 @@ void LevelOrder(BTNode* root)
 		BTNode* front = QueueFront(&q);
 		QueuePop(&q);
 		printf("%d ", front->data);	
-		// ×ó²»Îª¿Õ  
+		// å·¦ä¸ä¸ºç©º  
 		if(front->left)
 		{
 			QueuePush(&q, front->left);
 		}
 		
-		// ÓÒ²»Îª¿Õ  
+		// å³ä¸ä¸ºç©º  
 		if(front->right)
 		{
 			QueuePush(&q, front->right);
@@ -271,7 +271,7 @@ int main()
 	A->left = B;
 	A->right = C;
 	
-	// Ç°ÖĞºóĞò±éÀú 
+	// å‰ä¸­ååºéå† 
 	PreOrder(A); 
 	printf("\n");
 	InOrder(A);
@@ -279,18 +279,18 @@ int main()
 	PostOrder(A);
 	printf("\n");
 	
-	// È«²¿½Úµã 
+	// å…¨éƒ¨èŠ‚ç‚¹ 
 	printf("%d", TreeSize(A));
 	printf("\n");
-	// Ò¶×Ó½Úµã 
+	// å¶å­èŠ‚ç‚¹ 
 	printf("%d", TreeLeafSize(A));
 	printf("\n");
 	
-	// ²ãĞò±éÀú 
+	// å±‚åºéå† 
 	LevelOrder(A);
 	printf("\n"); 
 	
-	// Ê÷µÄÉî¶È 
+	// æ ‘çš„æ·±åº¦ 
 	printf("%d", maxDepth(A));
 	printf("\n"); 
 	
