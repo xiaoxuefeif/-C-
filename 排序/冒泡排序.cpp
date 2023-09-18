@@ -1,6 +1,6 @@
 # include<stdio.h>
 
-/*冒泡排序 O(n^2) 
+/*鍐掓场鎺掑簭 O(n^2) 
 
 
 */
@@ -15,20 +15,27 @@ void Swap(int* a, int* b)
 
 void BubbleSort(int* a, int n)
 {
+	int sign = 1;
 	for(int i=0; i<n-1; i++)
 	{
+		if(sign == 0)
+		{
+			break;
+		}
+		sign = 1;
 		for(int j=0; j<n-i-1; j++)
 		{
 			if(a[j] > a[j+1])
 			{
-				Swap(&a[j], &a[j+1]);	
+				Swap(&a[j], &a[j+1]);
+				sign = 1;	
 			}
 		}	
 	} 
 }
 
 
-// 必须将数组的长度传入  
+// 蹇呴』灏嗘暟缁勭殑闀垮害浼犲叆  
 void Print(int* a, int n)
 {
 	for(int i=0;i<n;i++)
