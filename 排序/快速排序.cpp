@@ -1,6 +1,6 @@
 # include<stdio.h>
 /*
-¿ìËÙÅÅĞò  
+å¿«é€Ÿæ’åº O(nlogn)
 
 */
 
@@ -9,23 +9,23 @@ void QuickSort_demo(int* a, int n)
 {
 	int begin = 0;
 	int end = n - 1;
-	// ¿ÓÎ»  
+	// å‘ä½  
 	int pivot = begin;
 	int key = a[begin];
 	
 	while(begin < end)
 	{
-		// ÓÒ±ßÕÒĞ¡£¬·Åµ½×ó±ß 
-		// begin < end ·ÀÖ¹Ô½½çÑ°ÕÒ  
+		// å³è¾¹æ‰¾å°ï¼Œæ”¾åˆ°å·¦è¾¹ 
+		// begin < end é˜²æ­¢è¶Šç•Œå¯»æ‰¾  
 		while(begin < end && a[end] >= key)
 		{
 			end--;
 		} 
-		// Ğ¡µÄ·Åµ½×ó±ßµÄ¿ÓÀï,×Ô¼ºĞÎ³ÉÁËĞÂµÄ¿ÓÎ»  
+		// å°çš„æ”¾åˆ°å·¦è¾¹çš„å‘é‡Œ,è‡ªå·±å½¢æˆäº†æ–°çš„å‘ä½  
 		a[pivot] = a[end];
 		pivot = end;
 		
-		// ×ó±ßÕÒ´ó£¬·Åµ½ÓÒ±ß  
+		// å·¦è¾¹æ‰¾å¤§ï¼Œæ”¾åˆ°å³è¾¹  
 		while(begin < end && a[begin] <= key)
 		{
 			begin++;
@@ -39,10 +39,10 @@ void QuickSort_demo(int* a, int n)
 	
 }
 
-// ·ÖÖÎ  
+// åˆ†æ²»  
 void QuickSort(int* a, int left, int right)
 {
-	// µİ¹é½áÊøÌõ¼ş 
+	// é€’å½’ç»“æŸæ¡ä»¶ 
 	if(left >= right)
 	{
 		return ;
@@ -50,7 +50,7 @@ void QuickSort(int* a, int left, int right)
 	
 	int begin = left;
 	int end = right-1;
-	// ÍÚ¿Ó  
+	// æŒ–å‘  
 	int pivot = begin;
 	int key = a[begin];
 	
@@ -72,13 +72,13 @@ void QuickSort(int* a, int left, int right)
 	} 
 	a[pivot] = key;
 	
-	// ¿ªÊ¼µİ¹é 
+	// å¼€å§‹é€’å½’ 
 	QuickSort(a, left, pivot-1);
 	QuickSort(a, pivot+1, right); 
 }
 
 
-// ±ØĞë½«Êı×éµÄ³¤¶È´«Èë  
+// å¿…é¡»å°†æ•°ç»„çš„é•¿åº¦ä¼ å…¥  
 void Print(int* a, int n)
 {
 	for(int i=0;i<n;i++)
