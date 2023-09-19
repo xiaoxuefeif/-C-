@@ -1,10 +1,11 @@
 # include<stdio.h>
 /*
 快速排序 O(nlogn)
+有序情况最坏 O(n^2) 
 
 */
 
-
+// 一次遍历  
 void QuickSort_demo(int* a, int n)
 {
 	int begin = 0;
@@ -39,6 +40,49 @@ void QuickSort_demo(int* a, int n)
 	
 }
 
+void Swap(int* a, int* b)
+{
+	int tmp = *a;
+	*a = *b;
+	*b = tmp;
+} 
+
+// 解决最坏情况: 三数取中  
+int GetMidIndex(int* a, int left, int right)
+{
+	int mid = (left + right) / 2;
+	if(a[left] < a[mid])
+	{
+		if(a[mid] < a[right])
+		{
+			return mid;
+		}
+		else if(a[left] > a[right])
+		{
+			return left;
+		}
+		else
+		{
+			return right;
+		}
+	}
+	else
+	{
+		if(a[mid] > a[right])
+		{
+			return mid;
+		}
+		else if(a[left] < a[right])
+		{
+			return left;
+		}
+		else
+		{
+			return right;
+		}
+	}
+}
+
 // 分治  
 void QuickSort(int* a, int left, int right)
 {
@@ -47,6 +91,10 @@ void QuickSort(int* a, int left, int right)
 	{
 		return ;
 	} 
+	
+	// 挖坑选三数取中  
+	int index = GetMidIndex(a, left, right);
+	Swap(&a[index], &a[left]); 
 	
 	int begin = left;
 	int end = right-1;
@@ -100,5 +148,4 @@ int main()
 	return 0;
 	 
 } 
-
 
