@@ -83,27 +83,22 @@ int GetMidIndex(int* a, int left, int right)
 	}
 }
 
-// 分治  
-void QuickSort(int* a, int left, int right)
+// 挖坑法  
+int PartSort_1(int* a, int left, int right)
 {
-	// 递归结束条件 
-	if(left >= right)
-	{
-		return ;
-	} 
-	
 	// 挖坑选三数取中  
 	int index = GetMidIndex(a, left, right);
 	Swap(&a[index], &a[left]); 
 	
 	int begin = left;
-	int end = right-1;
+	int end = right;
 	// 挖坑  
 	int pivot = begin;
 	int key = a[begin];
 	
 	while(begin < end)
 	{
+		// 右边找小  
 		while(begin < end && a[end] >= key)
 		{
 			end--;
@@ -111,6 +106,7 @@ void QuickSort(int* a, int left, int right)
 		a[pivot] = a[end];
 		pivot = end;
 		
+		// 左边找大 
 		while(begin < end && a[begin] <= key)
 		{
 			begin++;
@@ -120,13 +116,32 @@ void QuickSort(int* a, int left, int right)
 	} 
 	a[pivot] = key;
 	
-	// 开始递归 
-	QuickSort(a, left, pivot-1);
-	QuickSort(a, pivot+1, right); 
+	return pivot; 
 }
 
 
-// 必须将数组的长度传入  
+// 分治  
+void QuickSort(int* a, int left, int right)
+{
+	// 递归结束条件 
+	if(left >= right)
+	{
+		return ;
+	} 
+	
+	// 挖坑法 
+	int keyIndex = PartSort_1(a, left, right);
+	 
+	
+	// 开始递归 
+	QuickSort(a, left, keyIndex-1);
+	QuickSort(a, keyIndex+1, right); 
+}
+
+
+
+
+// 打印：必须将数组的长度传入  
 void Print(int* a, int n)
 {
 	for(int i=0;i<n;i++)
@@ -137,12 +152,11 @@ void Print(int* a, int n)
 }
 
 
-
 int main()
 { 
 	int a[]={3,5,2,7,8,6,1,9,4,0};
 	int len = sizeof(a)/sizeof(a[0]); 
-	QuickSort(a, 0, len);
+	QuickSort(a, 0, len-1);
 	Print(a, len);
 	
 	return 0;
