@@ -13,7 +13,7 @@ TNode* CreateTree(char* s, int* i)
 {
 	if(s[*i] == '#')
 	{
-		(*i)++;                      // ¼ÓÀ¨ºÅ 
+		(*i)++;                      // åŠ æ‹¬å·
 		return NULL;
 	}
 	TNode* root = (TNode*)malloc(sizeof(TNode));
@@ -45,7 +45,7 @@ int main()
 	scanf("%s", s);
 	getchar();
 	
-	int i = 0;  // ÎªÊı×é´´½¨ 
+	int i = 0;  // ä¸ºæ•°ç»„åˆ›å»º 
 	TNode* root = CreateTree(s, &i);
 	
 	InOrder(root);
